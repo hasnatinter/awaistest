@@ -1,0 +1,32 @@
+version: "3"
+services:
+  app:
+    build:
+      args:
+        user: sammy
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    networks:
+      - app-tier
+    ports:
+      - ${PHP_PORT_LOCAL:-9009}:9000
+    volumes:
+      - ./:/var/www/html/
+
+  nginx:
+    image: 'nginx'
+    depends_on:
+      - app
+    networks:
+      - app-tier
+    ports:
+      - ${APP_PORT_LOCAL:-70}:80
+      - ${APP_PORT_LOCAL_HTTPS:-4443}:443
+    volumes:
+      - ./:/var/www/html/
+      - ./docker/nginx:/etc/nginx/conf.d
+
+networks:
+  app-tier:
+    driver: bridge
