@@ -33,5 +33,6 @@ jobs:
       - name: Run tests
         run: php artisan test
   Test another job:
-    - runs-on: ubuntu-latest
-    - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      runs-on: ubuntu-latest
+      steps:
+        - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
