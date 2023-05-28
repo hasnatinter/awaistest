@@ -32,3 +32,6 @@ jobs:
 
       - name: Run tests
         run: php artisan test
+  Test another job:
+    - steps:
+        run: echo 'i am new job'
